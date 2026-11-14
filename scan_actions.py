@@ -104,6 +104,28 @@ def has_wl_keywords(text):
     return True
 
 
+# --- STRICT WL-OPEN GATE (rekomendasi Vesper, user setuju 2026-11-15) ---
+# Bukan cuma nyebut WL — WL-nya harus BENERAN BARU BUKA. Tolak postingan
+# yang bilang TIDAK ada WL ("no whitelist") dan yang cuma update/omongan
+# tanpa sinyal buka. Fail-closed: ragu = drop.
+WL_OPEN_SIGNALS = ["is open", "now open", "is live", "now live", "open now",
+                   "applications open", "apply now", "join the waitlist",
+                   "join our waitlist", "sign up", "registration is open",
+                   "registration open", "just opened", "just launched",
+                   "waitlist open", "whitelist open", "wl is open", "wl open"]
+WL_NEGATIONS = ["no whitelist", "no waitlist", "without whitelist",
+                "no preferential", "no wl "]
+
+
+def has_wl_opening(text):
+    t = (text or "").lower()
+    if any(k in t for k in WL_NEGATIONS):
+        return False
+    if not has_wl_keywords(text):
+        return False
+    return any(k in t for k in WL_OPEN_SIGNALS)
+
+
 def is_agentic(text):
     t = (text or "").lower()
     return any(k in t for k in AGENTIC_KW)
@@ -266,7 +288,7 @@ def main():
         text = f"{r['title']} {r['body']}"
         if looks_stale(text) or looks_bluechip(text):
             continue
-        if not has_wl_keywords(text):
+        if not has_wl_opening(text):
             continue
         if looks_personal(r["handle"], text):
             print(f"  PERSONAL: @{r['handle']} (bukan akun resmi project)", flush=True)
