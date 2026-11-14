@@ -109,6 +109,53 @@ def is_agentic(text):
     return any(k in t for k in AGENTIC_KW)
 
 
+# --- OFFICIAL-ACCOUNT GATE (user rule: akun resmi project saja) ---
+# Deterministic only (snippet + handle): personal/promoter accounts get
+# dropped, fail-closed. An official account usually talks about its own
+# project (handle stem appears in its own text) or uses "we/our/official"
+# voice; reposters copy-paste another project's announcement under their
+# own nickname, so the handle never matches the text.
+PERSONAL_VOICE = ["my wl", "my code", "my link", "my ref", "my referral",
+                  "dm me", "follow me", "i just", "i'm giving", "giveaway",
+                  "my portfolio", "my bag", "check out my", "my thread",
+                  "use my", "my invite", "my alpha", "i got wl",
+                  "got whitelisted", "my spot", "i minted", "my free mint",
+                  "my entry"]
+PERSONAL_HANDLE = ["trader", "calls", "signals", "guru", "sensei", "ninja",
+                   "xfinance", "gemhunter", "gem_hunter", "alpha_caller",
+                   "shill", "influencer"]
+STRONG_VOICE = ["our waitlist", "our whitelist", "we are", "our team",
+                "official"]
+
+
+def _words(text):
+    return re.findall(r"[a-z]{4,}", (text or "").lower())
+
+
+def _handle_stem(handle):
+    return re.sub(r"[^a-z]", "", (handle or "").lower().lstrip("@"))
+
+
+def looks_personal(handle, text):
+    """True = personal/promoter account, drop the candidate."""
+    h = (handle or "").lower().lstrip("@")
+    t = (text or "").lower()
+    if any(k in t for k in PERSONAL_VOICE):
+        return True
+    if any(k in h for k in PERSONAL_HANDLE):
+        return True
+    if re.search(r"^[a-z]{3,}[_-]?\d{2,}$", h):
+        return True  # nama + angka (hanzeey81, curtney002) = akun personal
+    if any(k in t for k in STRONG_VOICE):
+        return False
+    stem = _handle_stem(handle)
+    if len(stem) >= 4:
+        for w in _words(text):
+            if stem.startswith(w) or w.startswith(stem):
+                return False  # handle nyambung sama isi tweet-nya = akun proyek
+    return True
+
+
 def load_sent():
     try:
         items = json.load(open(SENT_PATH))
@@ -220,6 +267,9 @@ def main():
         if looks_stale(text) or looks_bluechip(text):
             continue
         if not has_wl_keywords(text):
+            continue
+        if looks_personal(r["handle"], text):
+            print(f"  PERSONAL: @{r['handle']} (bukan akun resmi project)", flush=True)
             continue
         agentic = is_agentic(text)
         snippet = re.sub(r"\s+", " ", r["body"] or r["title"] or "").strip()[:180]
