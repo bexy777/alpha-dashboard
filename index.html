@@ -166,7 +166,7 @@
     </div>
   </main>
 
-  <footer>DYOR — semua baris di sini hasil scan agent, bukan ajakan beli atau mint. Feed dibaca dari <code>feed.json</code>, ditulis agent tiap selesai scan.</footer>
+  <footer>DYOR — semua baris di sini hasil scan agent, bukan ajakan beli atau mint. Feed ditulis scanner GitHub Actions (alpha-grok) tiap selesai scan, dibaca dari <code>feed.json</code> repo alpha-grok.</footer>
 </div>
 
 <script>
@@ -237,11 +237,26 @@ function render() {
   });
 }
 
+const FEED_URLS = [
+  'https://raw.githubusercontent.com/bexy777/alpha-grok/main/feed.json',
+  'feed.json',
+];
+
+async function fetchFeed() {
+  let lastErr = null;
+  for (const url of FEED_URLS) {
+    try {
+      const res = await fetch(url + '?_=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return await res.json();
+    } catch (e) { lastErr = e; }
+  }
+  throw lastErr || new Error('feed tidak ditemukan');
+}
+
 async function load() {
   try {
-    const res = await fetch('feed.json?_=' + Date.now());
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
+    const data = await fetchFeed();
     items = (data.items || []).slice().sort((a, b) =>
       new Date(b.found_at || 0) - new Date(a.found_at || 0));
     statusEl.textContent = 'Feed live';
