@@ -2,105 +2,238 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Log temuan terbaru agent: NFT early-WL di bawah 12 jam, prioritas Agentic BNB.">
 <title>ALPHA — Garapan Terbaru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0b0e14; --card:#121826; --line:#1f2a3d; --txt:#e6edf3; --mut:#8b98a9; --acc:#f0b90b; --grn:#3fb950; --blu:#58a6ff; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--txt); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; min-height:100vh; }
-  header { padding:28px 20px 10px; max-width:960px; margin:0 auto; }
-  h1 { font-size:26px; letter-spacing:.5px; }
-  h1 span { color:var(--acc); }
-  p.sub { color:var(--mut); font-size:14px; margin-top:6px; }
-  p.sub b { color:var(--txt); }
-  .meta { display:flex; gap:16px; flex-wrap:wrap; margin-top:14px; font-size:13px; color:var(--mut); }
-  .meta b { color:var(--grn); }
-  .filters { max-width:960px; margin:14px auto 0; padding:0 20px; display:flex; gap:8px; flex-wrap:wrap; }
-  .filters button { background:var(--card); color:var(--txt); border:1px solid var(--line); border-radius:999px; padding:7px 14px; font-size:13px; cursor:pointer; }
-  .filters button.on { background:var(--acc); color:#111; border-color:var(--acc); font-weight:700; }
-  main { max-width:960px; margin:0 auto; padding:18px 20px 40px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:8px; }
-  .card h2 { font-size:17px; }
-  .tags { display:flex; gap:6px; flex-wrap:wrap; }
-  .tag { font-size:11px; font-weight:700; padding:3px 8px; border-radius:999px; background:#1f2a3d; color:var(--blu); }
-  .tag.agentic { background:rgba(240,185,11,.15); color:var(--acc); }
-  .tag.src { background:rgba(63,185,80,.12); color:var(--grn); }
-  .note { color:var(--mut); font-size:13.5px; line-height:1.5; }
-  .links { display:flex; gap:10px; margin-top:auto; padding-top:6px; }
-  .links a { color:var(--blu); font-size:13px; text-decoration:none; }
-  .links a:hover { text-decoration:underline; }
-  time { color:var(--mut); font-size:12px; }
-  .empty { text-align:center; color:var(--mut); padding:60px 20px; border:1px dashed var(--line); border-radius:14px; }
-  .empty b { color:var(--txt); display:block; font-size:16px; margin-bottom:8px; }
-  footer { max-width:960px; margin:0 auto; padding:0 20px 30px; color:var(--mut); font-size:12px; }
-  .err { color:#ff7b72; font-size:13px; padding:12px 0; }
+  :root {
+    --ink: #0c1220;
+    --panel: #101828;
+    --line: #22304d;
+    --paper: #e9edf4;
+    --muted: #8b98af;
+    --gold: #f0b90b;
+    --sky: #7cc4ff;
+    --danger: #ff7b72;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { color-scheme: dark; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+  a { color: var(--sky); text-underline-offset: 3px; }
+  a:hover { color: var(--paper); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+  .skip { position: absolute; left: -999px; top: 0; background: var(--gold); color: #111; padding: 10px 16px; font-weight: 700; z-index: 10; }
+  .skip:focus { left: 12px; top: 12px; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px calc(28px + env(safe-area-inset-bottom)); }
+
+  /* Masthead — the one bold element: wordmark + freshness */
+  header.mast { padding: 34px 0 18px; border-bottom: 1px solid var(--line); }
+  .wordmark {
+    font-weight: 900;
+    font-stretch: 125%;
+    font-size: clamp(40px, 11vw, 58px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .wordmark em { font-style: normal; color: var(--gold); }
+  .descriptor { color: var(--muted); font-size: 15px; margin-top: 10px; max-width: 56ch; }
+  .descriptor b { color: var(--paper); font-weight: 600; }
+  .live {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    margin-top: 16px; font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13px; font-variant-numeric: tabular-nums; color: var(--muted);
+  }
+  .live .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+    display: inline-block; align-self: center;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .live b { color: var(--paper); font-weight: 600; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+  /* Filter — segmented control, not pills */
+  .controls {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap;
+  }
+  .seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button {
+    appearance: none; background: transparent; color: var(--muted);
+    border: 0; border-right: 1px solid var(--line);
+    font: 600 13px/1 "Archivo", sans-serif;
+    min-height: 44px; padding: 0 14px; cursor: pointer; touch-action: manipulation;
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: var(--gold); color: #111; }
+  .count { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Feed — a log, not a card grid */
+  main { padding-top: 4px; }
+  .row {
+    display: grid; grid-template-columns: 74px 1fr; gap: 14px;
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+    min-width: 0;
+  }
+  .row:hover { background: var(--panel); margin: 0 -12px; padding-left: 12px; padding-right: 12px; }
+  .age {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13px; font-weight: 600; color: var(--gold);
+    font-variant-numeric: tabular-nums; line-height: 1.4; padding-top: 2px;
+    overflow-wrap: break-word;
+  }
+  .age.stale { color: var(--muted); }
+  .age small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+  .row h2 { font-size: 18px; font-weight: 700; line-height: 1.3; text-wrap: balance; min-width: 0; overflow-wrap: break-word; }
+  .row h2 a { color: var(--paper); text-decoration: none; }
+  .row h2 a:hover { color: var(--sky); text-decoration: underline; text-underline-offset: 3px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+  .tag {
+    font-size: 11.5px; font-weight: 600; letter-spacing: .01em;
+    padding: 3px 8px; border-radius: 4px;
+    background: #1a2742; color: var(--sky);
+  }
+  .tag.agentic { background: rgba(240, 185, 11, .14); color: var(--gold); }
+  .tag.src { background: transparent; border: 1px solid var(--line); color: var(--muted); font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; }
+  .note { color: var(--muted); font-size: 14px; margin-top: 7px; overflow-wrap: break-word; }
+  .links { display: flex; gap: 18px; margin-top: 9px; font-size: 14px; }
+  .links a { min-height: 24px; display: inline-flex; align-items: center; }
+  .fresh { animation: flash 2.4s ease-out 1; }
+  @keyframes flash { 0% { background: rgba(240, 185, 11, .12); } 100% { background: transparent; } }
+
+  .empty { padding: 48px 4px; border-bottom: 1px solid var(--line); }
+  .empty h2 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .empty p { color: var(--muted); max-width: 52ch; }
+  .empty p + p { margin-top: 6px; }
+  .err { color: var(--danger); font-size: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+
+  footer { padding-top: 18px; color: var(--muted); font-size: 12.5px; line-height: 1.6; }
+  footer code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--paper); }
+
+  @media (max-width: 520px) {
+    .row { grid-template-columns: 62px 1fr; gap: 10px; }
+    .seg button { padding: 0 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live .dot, .fresh { animation: none; }
+  }
 </style>
 </head>
 <body>
-<header>
-  <h1>ALPHA <span>// Garapan Terbaru</span></h1>
-  <p class="sub">Satu halaman buat mantau hasil scan agent — NFT early-WL &lt;12 jam, prioritas <b>Agentic BNB</b>. Data diisi otomatis tiap scan, bukan tulisan manual.</p>
-  <div class="meta">
-    <span>Status feed: <b id="feed-status">memuat…</b></span>
-    <span>Terakhir update: <b id="feed-updated">—</b></span>
-    <span>Total item: <b id="feed-count">0</b></span>
+<a class="skip" href="#feed">Lewati ke daftar temuan</a>
+<div class="wrap">
+  <header class="mast">
+    <h1 class="wordmark">ALPHA<em>.</em></h1>
+    <p class="descriptor">Log temuan terbaru agent — NFT early-WL di bawah 12 jam, prioritas <b>Agentic BNB</b>. Yang paling baru selalu di atas.</p>
+    <p class="live" aria-live="polite">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="feed-status">Memuat feed…</span>
+      <span>·</span>
+      <span>Temuan terbaru: <b id="feed-updated">—</b></span>
+    </p>
+  </header>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Filter berdasarkan sumber">
+      <button data-f="all" aria-pressed="true">Semua</button>
+      <button data-f="alpha-grok" aria-pressed="false">alpha-grok</button>
+      <button data-f="alpha-nft" aria-pressed="false">alpha-nft</button>
+      <button data-f="alpha-project" aria-pressed="false">alpha-project</button>
+    </div>
+    <span class="count"><span id="feed-count">0</span> temuan</span>
   </div>
-</header>
-<div class="filters" id="filters">
-  <button data-f="all" class="on">Semua</button>
-  <button data-f="alpha-grok">alpha-grok</button>
-  <button data-f="alpha-nft">alpha-nft</button>
-  <button data-f="alpha-project">alpha-project</button>
+
+  <main id="feed">
+    <p id="err" class="err" hidden></p>
+    <div id="rows"></div>
+    <div class="empty" id="empty" hidden>
+      <h2>Belum ada garapan terbaru</h2>
+      <p>Scanner agent belum menulis temuan ke feed ini, atau belum ada yang lolos gate. Halaman ini refresh sendiri tiap 60 detik — begitu ada temuan baru, barisnya muncul di atas.</p>
+      <p>Temuan juga tetap dikirim ke Discord seperti biasa.</p>
+    </div>
+  </main>
+
+  <footer>DYOR — semua baris di sini hasil scan agent, bukan ajakan beli atau mint. Feed dibaca dari <code>feed.json</code>, ditulis agent tiap selesai scan.</footer>
 </div>
-<main>
-  <div id="err" class="err" hidden></div>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty" hidden>
-    <b>Belum ada garapan terbaru</b>
-    Scanner agent belum menulis hasil scan ke feed ini, atau belum ada yang lolos gate.
-    Begitu ada temuan baru, kartu akan muncul di sini otomatis (refresh tiap 60 detik).
-  </div>
-</main>
-<footer>DYOR — semua item di sini hasil scan agent, bukan ajakan beli/mint. Feed: <code>feed.json</code> · di-update agent tiap scan.</footer>
+
 <script>
-const grid = document.getElementById('grid');
-const empty = document.getElementById('empty');
-const err = document.getElementById('err');
-let currentFilter = 'all';
+const rowsEl = document.getElementById('rows');
+const emptyEl = document.getElementById('empty');
+const errEl = document.getElementById('err');
+const statusEl = document.getElementById('feed-status');
+const updatedEl = document.getElementById('feed-updated');
+const countEl = document.getElementById('feed-count');
+let currentFilter = (location.hash || '#all').replace('#', '') || 'all';
 let items = [];
+let seenIds = new Set();
 
 function timeAgo(iso) {
-  const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
-  if (isNaN(s)) return iso || '—';
-  if (s < 60) return s + ' dtk lalu';
+  const t = new Date(iso).getTime();
+  if (isNaN(t)) return '—';
+  const s = Math.floor((Date.now() - t) / 1000);
+  if (s < 60) return 'baru saja';
   if (s < 3600) return Math.floor(s / 60) + ' mnt lalu';
   if (s < 86400) return Math.floor(s / 3600) + ' jam lalu';
   return Math.floor(s / 86400) + ' hari lalu';
 }
-function esc(x) { return String(x ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function ageShort(iso) {
+  const t = new Date(iso).getTime();
+  if (isNaN(t)) return '—';
+  const s = Math.floor((Date.now() - t) / 1000);
+  if (s < 60) return 'baru';
+  if (s < 3600) return Math.floor(s / 60) + 'm';
+  if (s < 86400) return Math.floor(s / 3600) + 'j';
+  return Math.floor(s / 86400) + 'h';
+}
+function isStale(iso) {
+  const t = new Date(iso).getTime();
+  return !isNaN(t) && (Date.now() - t) > 6 * 3600 * 1000;
+}
+function esc(x) { return String(x ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
 function render() {
   const list = items.filter(it => currentFilter === 'all' || it.source === currentFilter);
-  grid.innerHTML = '';
-  empty.hidden = list.length > 0;
-  document.getElementById('feed-count').textContent = items.length;
+  countEl.textContent = items.length;
+  emptyEl.hidden = list.length > 0;
+  rowsEl.innerHTML = '';
   list.forEach(it => {
-    const card = document.createElement('div');
-    card.className = 'card';
+    const isNew = it.id && !seenIds.has(it.id);
+    if (it.id) seenIds.add(it.id);
+    const art = document.createElement('article');
+    art.className = 'row' + (isNew ? ' fresh' : '');
     const tagHtml = (it.tags || []).map(t =>
       `<span class="tag ${/agentic/i.test(t) ? 'agentic' : ''}">${esc(t)}</span>`).join('');
-    card.innerHTML = `
-      <h2>${esc(it.project)}</h2>
-      <div class="tags"><span class="tag src">${esc(it.source || '')}</span>${tagHtml}</div>
-      ${it.note ? `<p class="note">${esc(it.note)}</p>` : ''}
-      <time>Ketemu ${timeAgo(it.found_at)} · ${esc(it.handle || '')}</time>
-      <div class="links">
-        ${it.post_url ? `<a href="${esc(it.post_url)}" target="_blank" rel="noopener">Post ↗</a>` : ''}
-        ${it.site_url ? `<a href="${esc(it.site_url)}" target="_blank" rel="noopener">Website ↗</a>` : ''}
-        ${it.handle ? `<a href="https://x.com/${esc(String(it.handle).replace(/^@/, ''))}" target="_blank" rel="noopener">Profil X ↗</a>` : ''}
+    const title = it.post_url
+      ? `<a href="${esc(it.post_url)}" target="_blank" rel="noopener">${esc(it.project)}</a>`
+      : esc(it.project);
+    const links = [
+      it.post_url ? `<a href="${esc(it.post_url)}" target="_blank" rel="noopener">Post</a>` : '',
+      it.site_url ? `<a href="${esc(it.site_url)}" target="_blank" rel="noopener">Website</a>` : '',
+      it.handle ? `<a href="https://x.com/${esc(String(it.handle).replace(/^@/, ''))}" target="_blank" rel="noopener">Profil X</a>` : ''
+    ].filter(Boolean).join('');
+    art.innerHTML = `
+      <div class="age ${isStale(it.found_at) ? 'stale' : ''}">${esc(ageShort(it.found_at))}<small>${esc(timeAgo(it.found_at))}</small></div>
+      <div>
+        <h2>${title}</h2>
+        <div class="tags"><span class="tag src">${esc(it.source || '')}</span>${tagHtml}</div>
+        ${it.note ? `<p class="note">${esc(it.note)}</p>` : ''}
+        ${it.handle ? `<p class="note">${esc(it.handle)}</p>` : ''}
+        ${links ? `<div class="links">${links}</div>` : ''}
       </div>`;
-    grid.appendChild(card);
+    rowsEl.appendChild(art);
   });
 }
 
@@ -111,26 +244,32 @@ async function load() {
     const data = await res.json();
     items = (data.items || []).slice().sort((a, b) =>
       new Date(b.found_at || 0) - new Date(a.found_at || 0));
-    document.getElementById('feed-status').textContent = 'live';
-    document.getElementById('feed-updated').textContent =
-      data.updated_at ? timeAgo(data.updated_at) : '—';
-    err.hidden = true;
+    statusEl.textContent = 'Feed live';
+    updatedEl.textContent = data.updated_at ? timeAgo(data.updated_at) : 'belum pernah';
+    errEl.hidden = true;
     render();
   } catch (e) {
-    document.getElementById('feed-status').textContent = 'gagal dimuat';
-    err.textContent = 'Feed gagal dimuat: ' + e.message;
-    err.hidden = false;
+    statusEl.textContent = 'Feed gagal dimuat';
+    errEl.textContent = 'Feed gagal dimuat (' + e.message + '). Coba refresh halaman.';
+    errEl.hidden = false;
   }
 }
 
-document.getElementById('filters').addEventListener('click', e => {
+function setFilter(f, push) {
+  currentFilter = f;
+  document.querySelectorAll('.seg button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.f === f)));
+  if (push) history.replaceState(null, '', '#' + f);
+  render();
+}
+
+document.querySelector('.seg').addEventListener('click', e => {
   const b = e.target.closest('button');
   if (!b) return;
-  currentFilter = b.dataset.f;
-  document.querySelectorAll('#filters button').forEach(x => x.classList.toggle('on', x === b));
-  render();
+  setFilter(b.dataset.f, true);
 });
 
+setFilter(['all', 'alpha-grok', 'alpha-nft', 'alpha-project'].includes(currentFilter) ? currentFilter : 'all', false);
 load();
 setInterval(load, 60000);
 </script>
