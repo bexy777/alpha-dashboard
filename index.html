@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALPHA — Garapan Terbaru</title>
+<style>
+  :root { --bg:#0b0e14; --card:#121826; --line:#1f2a3d; --txt:#e6edf3; --mut:#8b98a9; --acc:#f0b90b; --grn:#3fb950; --blu:#58a6ff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; min-height:100vh; }
+  header { padding:28px 20px 10px; max-width:960px; margin:0 auto; }
+  h1 { font-size:26px; letter-spacing:.5px; }
+  h1 span { color:var(--acc); }
+  p.sub { color:var(--mut); font-size:14px; margin-top:6px; }
+  p.sub b { color:var(--txt); }
+  .meta { display:flex; gap:16px; flex-wrap:wrap; margin-top:14px; font-size:13px; color:var(--mut); }
+  .meta b { color:var(--grn); }
+  .filters { max-width:960px; margin:14px auto 0; padding:0 20px; display:flex; gap:8px; flex-wrap:wrap; }
+  .filters button { background:var(--card); color:var(--txt); border:1px solid var(--line); border-radius:999px; padding:7px 14px; font-size:13px; cursor:pointer; }
+  .filters button.on { background:var(--acc); color:#111; border-color:var(--acc); font-weight:700; }
+  main { max-width:960px; margin:0 auto; padding:18px 20px 40px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:8px; }
+  .card h2 { font-size:17px; }
+  .tags { display:flex; gap:6px; flex-wrap:wrap; }
+  .tag { font-size:11px; font-weight:700; padding:3px 8px; border-radius:999px; background:#1f2a3d; color:var(--blu); }
+  .tag.agentic { background:rgba(240,185,11,.15); color:var(--acc); }
+  .tag.src { background:rgba(63,185,80,.12); color:var(--grn); }
+  .note { color:var(--mut); font-size:13.5px; line-height:1.5; }
+  .links { display:flex; gap:10px; margin-top:auto; padding-top:6px; }
+  .links a { color:var(--blu); font-size:13px; text-decoration:none; }
+  .links a:hover { text-decoration:underline; }
+  time { color:var(--mut); font-size:12px; }
+  .empty { text-align:center; color:var(--mut); padding:60px 20px; border:1px dashed var(--line); border-radius:14px; }
+  .empty b { color:var(--txt); display:block; font-size:16px; margin-bottom:8px; }
+  footer { max-width:960px; margin:0 auto; padding:0 20px 30px; color:var(--mut); font-size:12px; }
+  .err { color:#ff7b72; font-size:13px; padding:12px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ALPHA <span>// Garapan Terbaru</span></h1>
+  <p class="sub">Satu halaman buat mantau hasil scan agent — NFT early-WL &lt;12 jam, prioritas <b>Agentic BNB</b>. Data diisi otomatis tiap scan, bukan tulisan manual.</p>
+  <div class="meta">
+    <span>Status feed: <b id="feed-status">memuat…</b></span>
+    <span>Terakhir update: <b id="feed-updated">—</b></span>
+    <span>Total item: <b id="feed-count">0</b></span>
+  </div>
+</header>
+<div class="filters" id="filters">
+  <button data-f="all" class="on">Semua</button>
+  <button data-f="alpha-grok">alpha-grok</button>
+  <button data-f="alpha-nft">alpha-nft</button>
+  <button data-f="alpha-project">alpha-project</button>
+</div>
+<main>
+  <div id="err" class="err" hidden></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>
+    <b>Belum ada garapan terbaru</b>
+    Scanner agent belum menulis hasil scan ke feed ini, atau belum ada yang lolos gate.
+    Begitu ada temuan baru, kartu akan muncul di sini otomatis (refresh tiap 60 detik).
+  </div>
+</main>
+<footer>DYOR — semua item di sini hasil scan agent, bukan ajakan beli/mint. Feed: <code>feed.json</code> · di-update agent tiap scan.</footer>
+<script>
+const grid = document.getElementById('grid');
+const empty = document.getElementById('empty');
+const err = document.getElementById('err');
+let currentFilter = 'all';
+let items = [];
+
+function timeAgo(iso) {
+  const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+  if (isNaN(s)) return iso || '—';
+  if (s < 60) return s + ' dtk lalu';
+  if (s < 3600) return Math.floor(s / 60) + ' mnt lalu';
+  if (s < 86400) return Math.floor(s / 3600) + ' jam lalu';
+  return Math.floor(s / 86400) + ' hari lalu';
+}
+function esc(x) { return String(x ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function render() {
+  const list = items.filter(it => currentFilter === 'all' || it.source === currentFilter);
+  grid.innerHTML = '';
+  empty.hidden = list.length > 0;
+  document.getElementById('feed-count').textContent = items.length;
+  list.forEach(it => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const tagHtml = (it.tags || []).map(t =>
+      `<span class="tag ${/agentic/i.test(t) ? 'agentic' : ''}">${esc(t)}</span>`).join('');
+    card.innerHTML = `
+      <h2>${esc(it.project)}</h2>
+      <div class="tags"><span class="tag src">${esc(it.source || '')}</span>${tagHtml}</div>
+      ${it.note ? `<p class="note">${esc(it.note)}</p>` : ''}
+      <time>Ketemu ${timeAgo(it.found_at)} · ${esc(it.handle || '')}</time>
+      <div class="links">
+        ${it.post_url ? `<a href="${esc(it.post_url)}" target="_blank" rel="noopener">Post ↗</a>` : ''}
+        ${it.site_url ? `<a href="${esc(it.site_url)}" target="_blank" rel="noopener">Website ↗</a>` : ''}
+        ${it.handle ? `<a href="https://x.com/${esc(String(it.handle).replace(/^@/, ''))}" target="_blank" rel="noopener">Profil X ↗</a>` : ''}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+async function load() {
+  try {
+    const res = await fetch('feed.json?_=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    items = (data.items || []).slice().sort((a, b) =>
+      new Date(b.found_at || 0) - new Date(a.found_at || 0));
+    document.getElementById('feed-status').textContent = 'live';
+    document.getElementById('feed-updated').textContent =
+      data.updated_at ? timeAgo(data.updated_at) : '—';
+    err.hidden = true;
+    render();
+  } catch (e) {
+    document.getElementById('feed-status').textContent = 'gagal dimuat';
+    err.textContent = 'Feed gagal dimuat: ' + e.message;
+    err.hidden = false;
+  }
+}
+
+document.getElementById('filters').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  currentFilter = b.dataset.f;
+  document.querySelectorAll('#filters button').forEach(x => x.classList.toggle('on', x === b));
+  render();
+});
+
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
