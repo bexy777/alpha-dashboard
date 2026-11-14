@@ -1,275 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="Log temuan terbaru agent: NFT early-WL di bawah 12 jam, prioritas Agentic BNB.">
 <title>ALPHA — Garapan Terbaru</title>
+<meta name="description" content="Log temuan terbaru agent: project NFT yang WL-nya baru buka, dari akun resmi project.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #0c1220;
-    --panel: #101828;
-    --line: #22304d;
-    --paper: #e9edf4;
-    --muted: #8b98af;
-    --gold: #f0b90b;
-    --sky: #7cc4ff;
-    --danger: #ff7b72;
+    --bg: #000000;
+    --row: #14171d;
+    --row-hover: #171b22;
+    --line: #23272f;
+    --line-hover: #2e3542;
+    --paper: #edeff3;
+    --muted: #8a919e;
+    --blue: #5b9bd5;
+    --blue-dim: #3e6e9e;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { color-scheme: dark; -webkit-text-size-adjust: 100%; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    background: var(--ink);
+    margin: 0;
+    background: var(--bg);
     color: var(--paper);
-    font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 15px;
     line-height: 1.55;
-    min-height: 100vh;
-    -webkit-tap-highlight-color: transparent;
+    padding: calc(20px + env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom));
   }
-  a { color: var(--sky); text-underline-offset: 3px; }
-  a:hover { color: var(--paper); }
-  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
-  .skip { position: absolute; left: -999px; top: 0; background: var(--gold); color: #111; padding: 10px 16px; font-weight: 700; z-index: 10; }
-  .skip:focus { left: 12px; top: 12px; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+  .skip {
+    position: absolute; left: -999px; top: 0;
+    background: var(--blue); color: #000; padding: 10px 14px;
+    font-weight: 600; border-radius: 0 0 8px 0; z-index: 10;
+  }
+  .skip:focus { left: 0; }
+  main { max-width: 760px; margin: 0 auto; }
 
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px calc(28px + env(safe-area-inset-bottom)); }
-
-  /* Masthead — the one bold element: wordmark + freshness */
-  header.mast { padding: 34px 0 18px; border-bottom: 1px solid var(--line); }
+  header { padding: 12px 2px 18px; border-bottom: 1px solid var(--line); }
   .wordmark {
-    font-weight: 900;
-    font-stretch: 125%;
-    font-size: clamp(40px, 11vw, 58px);
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    text-wrap: balance;
+    font-family: "Archivo", system-ui, sans-serif;
+    font-weight: 900; font-stretch: 125%;
+    font-size: clamp(40px, 10vw, 56px);
+    line-height: 1; letter-spacing: -0.02em;
+    margin: 0; color: var(--paper);
   }
-  .wordmark em { font-style: normal; color: var(--gold); }
-  .descriptor { color: var(--muted); font-size: 15px; margin-top: 10px; max-width: 56ch; }
-  .descriptor b { color: var(--paper); font-weight: 600; }
-  .live {
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-    margin-top: 16px; font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 13px; font-variant-numeric: tabular-nums; color: var(--muted);
+  .wordmark em { font-style: normal; color: var(--blue); }
+  .lede { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+  .status {
+    margin: 12px 0 0; color: var(--muted); font-size: 12.5px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   }
-  .live .dot {
-    width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
-    display: inline-block; align-self: center;
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--blue); flex: none;
     animation: pulse 2s ease-in-out infinite;
   }
-  .live b { color: var(--paper); font-weight: 600; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
 
-  /* Filter — segmented control, not pills */
-  .controls {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 14px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap;
+  .filters {
+    display: flex; margin: 18px 0 14px;
+    border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; background: var(--row);
   }
-  .seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .seg button {
-    appearance: none; background: transparent; color: var(--muted);
-    border: 0; border-right: 1px solid var(--line);
-    font: 600 13px/1 "Archivo", sans-serif;
-    min-height: 44px; padding: 0 14px; cursor: pointer; touch-action: manipulation;
+  .filters button {
+    flex: 1; min-height: 44px; padding: 10px 6px;
+    background: transparent; border: 0; cursor: pointer;
+    color: var(--muted); font: inherit; font-size: 12.5px;
+    border-right: 1px solid var(--line);
   }
-  .seg button:last-child { border-right: 0; }
-  .seg button[aria-pressed="true"] { background: var(--gold); color: #111; }
-  .count { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .filters button:last-child { border-right: 0; }
+  .filters button[aria-pressed="true"] { background: #1a2333; color: var(--blue); font-weight: 600; }
 
-  /* Feed — a log, not a card grid */
-  main { padding-top: 4px; }
+  .feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
   .row {
-    display: grid; grid-template-columns: 74px 1fr; gap: 14px;
-    padding: 18px 0; border-bottom: 1px solid var(--line);
-    min-width: 0;
+    background: var(--row);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px;
+    transition: border-color .15s ease, background .15s ease;
   }
-  .row:hover { background: var(--panel); margin: 0 -12px; padding-left: 12px; padding-right: 12px; }
-  .age {
-    font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 13px; font-weight: 600; color: var(--gold);
-    font-variant-numeric: tabular-nums; line-height: 1.4; padding-top: 2px;
-    overflow-wrap: break-word;
+  .row:hover { background: var(--row-hover); border-color: var(--line-hover); }
+  .row.fresh { animation: flash 1.2s ease-out 1; }
+  @keyframes flash { from { border-color: var(--blue); } to { border-color: var(--line); } }
+  @media (prefers-reduced-motion: reduce) { .row.fresh { animation: none; } }
+  .line1 { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+  .rank {
+    color: var(--blue); font-weight: 600; font-size: 15px;
+    min-width: 28px; flex: none; text-align: right;
+    font-variant-numeric: tabular-nums;
   }
-  .age.stale { color: var(--muted); }
-  .age small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
-  .row h2 { font-size: 18px; font-weight: 700; line-height: 1.3; text-wrap: balance; min-width: 0; overflow-wrap: break-word; }
-  .row h2 a { color: var(--paper); text-decoration: none; }
-  .row h2 a:hover { color: var(--sky); text-decoration: underline; text-underline-offset: 3px; }
-  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
-  .tag {
-    font-size: 11.5px; font-weight: 600; letter-spacing: .01em;
-    padding: 3px 8px; border-radius: 4px;
-    background: #1a2742; color: var(--sky);
+  .who { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .who .src { color: var(--muted); }
+  .who .sep { color: var(--muted); }
+  .who .proj { color: var(--paper); font-weight: 600; }
+  .who a.proj:hover { color: var(--blue); }
+  .meta { margin-left: auto; flex: none; display: flex; align-items: baseline; gap: 10px; }
+  .tag { color: var(--blue); font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+  .age { color: var(--blue); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .age.stale { color: var(--blue-dim); }
+  .note {
+    margin: 8px 0 0 40px; color: var(--muted);
+    font-size: 12.5px; line-height: 1.6;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  .tag.agentic { background: rgba(240, 185, 11, .14); color: var(--gold); }
-  .tag.src { background: transparent; border: 1px solid var(--line); color: var(--muted); font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; }
-  .note { color: var(--muted); font-size: 14px; margin-top: 7px; overflow-wrap: break-word; }
-  .links { display: flex; gap: 18px; margin-top: 9px; font-size: 14px; }
-  .links a { min-height: 24px; display: inline-flex; align-items: center; }
-  .fresh { animation: flash 2.4s ease-out 1; }
-  @keyframes flash { 0% { background: rgba(240, 185, 11, .12); } 100% { background: transparent; } }
+  .note a { color: var(--blue); }
 
-  .empty { padding: 48px 4px; border-bottom: 1px solid var(--line); }
-  .empty h2 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
-  .empty p { color: var(--muted); max-width: 52ch; }
-  .empty p + p { margin-top: 6px; }
-  .err { color: var(--danger); font-size: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-
-  footer { padding-top: 18px; color: var(--muted); font-size: 12.5px; line-height: 1.6; }
-  footer code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--paper); }
-
-  @media (max-width: 520px) {
-    .row { grid-template-columns: 62px 1fr; gap: 10px; }
-    .seg button { padding: 0 10px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .live .dot, .fresh { animation: none; }
+  .empty { padding: 36px 8px; text-align: left; color: var(--muted); font-size: 13.5px; line-height: 1.7; }
+  .empty strong { color: var(--paper); font-weight: 600; }
+  footer { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.7; }
+  code { color: var(--paper); }
+  @media (max-width: 480px) {
+    .rank { min-width: 22px; }
+    .note { margin-left: 34px; }
+    .tag { display: none; }
   }
 </style>
 </head>
 <body>
-<a class="skip" href="#feed">Lewati ke daftar temuan</a>
-<div class="wrap">
-  <header class="mast">
+<a class="skip" href="#feed">Lewati ke daftar</a>
+<main>
+  <header>
     <h1 class="wordmark">ALPHA<em>.</em></h1>
-    <p class="descriptor">Log temuan terbaru agent — NFT early-WL di bawah 12 jam, prioritas <b>Agentic BNB</b>. Yang paling baru selalu di atas.</p>
-    <p class="live" aria-live="polite">
-      <span class="dot" aria-hidden="true"></span>
-      <span id="feed-status">Memuat feed…</span>
-      <span>·</span>
-      <span>Temuan terbaru: <b id="feed-updated">—</b></span>
-    </p>
+    <p class="lede">Log temuan terbaru agent — project NFT yang WL-nya baru buka, dari akun resmi project.</p>
+    <p class="status"><span class="dot" aria-hidden="true"></span><span id="feed-status" aria-live="polite">Memuat feed…</span></p>
   </header>
 
-  <div class="controls">
-    <div class="seg" role="group" aria-label="Filter berdasarkan sumber">
-      <button data-f="all" aria-pressed="true">Semua</button>
-      <button data-f="alpha-grok" aria-pressed="false">alpha-grok</button>
-      <button data-f="alpha-nft" aria-pressed="false">alpha-nft</button>
-      <button data-f="alpha-project" aria-pressed="false">alpha-project</button>
-    </div>
-    <span class="count"><span id="feed-count">0</span> temuan</span>
+  <div class="filters" role="group" aria-label="Filter sumber">
+    <button type="button" data-filter="all" aria-pressed="true">Semua</button>
+    <button type="button" data-filter="alpha-grok" aria-pressed="false">alpha-grok</button>
+    <button type="button" data-filter="alpha-nft" aria-pressed="false">alpha-nft</button>
+    <button type="button" data-filter="alpha-project" aria-pressed="false">alpha-project</button>
   </div>
 
-  <main id="feed">
-    <p id="err" class="err" hidden></p>
-    <div id="rows"></div>
-    <div class="empty" id="empty" hidden>
-      <h2>Belum ada garapan terbaru</h2>
-      <p>Scanner agent belum menulis temuan ke feed ini, atau belum ada yang lolos gate. Halaman ini refresh sendiri tiap 60 detik — begitu ada temuan baru, barisnya muncul di atas.</p>
-      <p>Temuan juga tetap dikirim ke Discord seperti biasa.</p>
-    </div>
-  </main>
+  <ul class="feed" id="feed"></ul>
 
   <footer>DYOR — semua baris di sini hasil scan agent, bukan ajakan beli atau mint. Feed ditulis scanner GitHub Actions di repo ini tiap selesai scan, dibaca dari <code>feed.json</code>.</footer>
-</div>
-
+</main>
 <script>
-const rowsEl = document.getElementById('rows');
-const emptyEl = document.getElementById('empty');
-const errEl = document.getElementById('err');
-const statusEl = document.getElementById('feed-status');
-const updatedEl = document.getElementById('feed-updated');
-const countEl = document.getElementById('feed-count');
-let currentFilter = (location.hash || '#all').replace('#', '') || 'all';
-let items = [];
-let seenIds = new Set();
+const FEED_URL = 'feed.json';
+const seen = new Set();
+let activeFilter = location.hash ? location.hash.slice(1) : 'all';
+if (!['all', 'alpha-grok', 'alpha-nft', 'alpha-project'].includes(activeFilter)) activeFilter = 'all';
 
-function timeAgo(iso) {
+function ageLabel(iso) {
   const t = new Date(iso).getTime();
   if (isNaN(t)) return '—';
-  const s = Math.floor((Date.now() - t) / 1000);
-  if (s < 60) return 'baru saja';
-  if (s < 3600) return Math.floor(s / 60) + ' mnt lalu';
-  if (s < 86400) return Math.floor(s / 3600) + ' jam lalu';
-  return Math.floor(s / 86400) + ' hari lalu';
-}
-function ageShort(iso) {
-  const t = new Date(iso).getTime();
-  if (isNaN(t)) return '—';
-  const s = Math.floor((Date.now() - t) / 1000);
-  if (s < 60) return 'baru';
-  if (s < 3600) return Math.floor(s / 60) + 'm';
-  if (s < 86400) return Math.floor(s / 3600) + 'j';
-  return Math.floor(s / 86400) + 'h';
+  const m = Math.max(0, Math.floor((Date.now() - t) / 60000));
+  if (m < 60) return m + 'm';
+  const h = Math.floor(m / 60);
+  if (h < 24) return h + 'j ' + (m % 60) + 'm';
+  return Math.floor(h / 24) + 'h';
 }
 function isStale(iso) {
   const t = new Date(iso).getTime();
   return !isNaN(t) && (Date.now() - t) > 6 * 3600 * 1000;
 }
-function esc(x) { return String(x ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function fmtTime(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? '—' : d.toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
 
-function render() {
-  const list = items.filter(it => currentFilter === 'all' || it.source === currentFilter);
-  countEl.textContent = items.length;
-  emptyEl.hidden = list.length > 0;
-  rowsEl.innerHTML = '';
-  list.forEach(it => {
-    const isNew = it.id && !seenIds.has(it.id);
-    if (it.id) seenIds.add(it.id);
-    const art = document.createElement('article');
-    art.className = 'row' + (isNew ? ' fresh' : '');
-    const tagHtml = (it.tags || []).map(t =>
-      `<span class="tag ${/agentic/i.test(t) ? 'agentic' : ''}">${esc(t)}</span>`).join('');
-    const title = it.post_url
-      ? `<a href="${esc(it.post_url)}" target="_blank" rel="noopener">${esc(it.project)}</a>`
-      : esc(it.project);
-    const links = [
-      it.post_url ? `<a href="${esc(it.post_url)}" target="_blank" rel="noopener">Post</a>` : '',
-      it.site_url ? `<a href="${esc(it.site_url)}" target="_blank" rel="noopener">Website</a>` : '',
-      it.handle ? `<a href="https://x.com/${esc(String(it.handle).replace(/^@/, ''))}" target="_blank" rel="noopener">Profil X</a>` : ''
-    ].filter(Boolean).join('');
-    art.innerHTML = `
-      <div class="age ${isStale(it.found_at) ? 'stale' : ''}">${esc(ageShort(it.found_at))}<small>${esc(timeAgo(it.found_at))}</small></div>
-      <div>
-        <h2>${title}</h2>
-        <div class="tags"><span class="tag src">${esc(it.source || '')}</span>${tagHtml}</div>
-        ${it.note ? `<p class="note">${esc(it.note)}</p>` : ''}
-        ${it.handle ? `<p class="note">${esc(it.handle)}</p>` : ''}
-        ${links ? `<div class="links">${links}</div>` : ''}
-      </div>`;
-    rowsEl.appendChild(art);
-  });
+function render(items) {
+  const list = document.getElementById('feed');
+  const filtered = items.filter(it => activeFilter === 'all' || it.source === activeFilter);
+  if (!filtered.length) {
+    list.innerHTML = '<li class="empty"><strong>Belum ada garapan terbaru.</strong><br>Scanner jalan tiap 2 jam. Begitu ada WL baru dari akun resmi project, barisnya muncul di sini sendiri.</li>';
+    return;
+  }
+  list.innerHTML = filtered.map((it, i) => {
+    const fresh = !seen.has(it.id);
+    seen.add(it.id);
+    const tags = (it.tags || []).join(' ');
+    const tagHtml = /AGENTIC/i.test(tags) ? '<span class="tag">AGENTIC BNB</span>' : '';
+    const site = it.site_url ? ' <a href="' + esc(it.site_url) + '" target="_blank" rel="noopener">situs ↗</a>' : '';
+    return '<li class="row' + (fresh ? ' fresh' : '') + '">' +
+      '<div class="line1">' +
+        '<span class="rank">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<span class="who"><span class="src">' + esc(it.source || 'alpha') + '</span><span class="sep"> / </span><a class="proj" href="' + esc(it.post_url) + '" target="_blank" rel="noopener">' + esc(it.project || it.handle || '—') + '</a></span>' +
+        '<span class="meta">' + tagHtml + '<span class="age' + (isStale(it.found_at) ? ' stale' : '') + '" title="' + esc(fmtTime(it.found_at)) + '">' + esc(ageLabel(it.found_at)) + '</span></span>' +
+      '</div>' +
+      '<p class="note">' + esc(it.note || 'Detail terbatas.') + site + '</p>' +
+    '</li>';
+  }).join('');
 }
 
 async function load() {
   try {
-    const res = await fetch('feed.json?_=' + Date.now());
+    const res = await fetch(FEED_URL + '?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    items = (data.items || []).slice().sort((a, b) =>
-      new Date(b.found_at || 0) - new Date(a.found_at || 0));
-    statusEl.textContent = 'Feed live';
-    updatedEl.textContent = data.updated_at ? timeAgo(data.updated_at) : 'belum pernah';
-    errEl.hidden = true;
-    render();
+    const items = (data.items || []).slice().sort((a, b) => new Date(b.found_at) - new Date(a.found_at));
+    render(items);
+    const n = items.length;
+    const upd = data.updated_at ? fmtTime(data.updated_at) : 'belum pernah';
+    document.getElementById('feed-status').textContent =
+      'Temuan terbaru: ' + upd + ' · ' + n + ' temuan' + (activeFilter !== 'all' ? ' · filter: ' + activeFilter : '');
   } catch (e) {
-    statusEl.textContent = 'Feed gagal dimuat';
-    errEl.textContent = 'Feed gagal dimuat (' + e.message + '). Coba refresh halaman.';
-    errEl.hidden = false;
+    document.getElementById('feed-status').textContent = 'Feed belum bisa dimuat (' + e.message + '). Coba lagi sebentar lagi.';
+    document.getElementById('feed').innerHTML = '<li class="empty"><strong>Feed belum bisa dimuat.</strong><br>Periksa koneksi, lalu muat ulang halaman ini.</li>';
   }
 }
 
-function setFilter(f, push) {
-  currentFilter = f;
-  document.querySelectorAll('.seg button').forEach(b =>
-    b.setAttribute('aria-pressed', String(b.dataset.f === f)));
-  if (push) history.replaceState(null, '', '#' + f);
-  render();
-}
-
-document.querySelector('.seg').addEventListener('click', e => {
-  const b = e.target.closest('button');
-  if (!b) return;
-  setFilter(b.dataset.f, true);
+document.querySelectorAll('.filters button').forEach(btn => {
+  if (btn.dataset.filter === activeFilter) btn.setAttribute('aria-pressed', 'true');
+  else btn.setAttribute('aria-pressed', 'false');
+  btn.addEventListener('click', () => {
+    activeFilter = btn.dataset.filter;
+    history.replaceState(null, '', activeFilter === 'all' ? location.pathname : '#' + activeFilter);
+    document.querySelectorAll('.filters button').forEach(b =>
+      b.setAttribute('aria-pressed', String(b === btn)));
+    load();
+  });
 });
 
-setFilter(['all', 'alpha-grok', 'alpha-nft', 'alpha-project'].includes(currentFilter) ? currentFilter : 'all', false);
 load();
 setInterval(load, 60000);
 </script>
