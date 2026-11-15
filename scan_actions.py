@@ -145,7 +145,8 @@ PERSONAL_VOICE = ["my wl", "my code", "my link", "my ref", "my referral",
                   "my entry"]
 PERSONAL_HANDLE = ["trader", "calls", "signals", "guru", "sensei", "ninja",
                    "xfinance", "gemhunter", "gem_hunter", "alpha_caller",
-                   "shill", "influencer"]
+                   "shill", "influencer", "airdrop", "promot", "promo",
+                   "giveaway"]
 STRONG_VOICE = ["our waitlist", "our whitelist", "we are", "our team",
                 "official"]
 
