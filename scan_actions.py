@@ -312,6 +312,16 @@ def main():
 
     print(f"CANDIDATES: {len(cands)}", flush=True)
     if not cands:
+        # Heartbeat: refresh updated_at so the dashboard shows the last scan
+        # even when nothing new passed the gates (0 new != scanner dead).
+        # Old items are preserved; only the timestamp moves.
+        old_items = load_feed()
+        for it in old_items:
+            it.pop("age_label", None)
+        json.dump({
+            "updated_at": datetime.datetime.fromtimestamp(NOW, datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "items": old_items[:50],
+        }, open(FEED_PATH, "w"), indent=1)
         print("[[SILENT]]")
         return 0
 
